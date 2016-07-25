@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "279555456480",
+    "firebase_url": "https://bicycle-accidents.firebaseio.com",
+    "project_id": "bicycle-accidents",
+    "storage_bucket": "bicycle-accidents.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279555456480:android:6276f18c86c17fd4",
+        "android_client_info": {
+          "package_name": "com.epicodus.android_bike_accidents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279555456480-uqar2slsl9p9g029j6er8fe1gi59cp4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.android_bike_accidents",
+            "certificate_hash": "ACEB2DC706576A9175617FEBD79E24BB79A4A3CB"
+          }
+        },
+        {
+          "client_id": "279555456480-sp4d1sq3kqj4h57mue6a2t419prjp6fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAavSjkGTEOeKpiBbeCBezWSRzot4nMe7w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279555456480-sp4d1sq3kqj4h57mue6a2t419prjp6fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
