@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,13 +25,23 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
     @Bind(R.id.dateOutput) TextView mDateOutput;
     @Bind(R.id.selectTimeButton) Button mSelectTimeButton;
     @Bind(R.id.timeOutput) TextView mTimeOutput;
-
+    @Bind(R.id.typeSpinner) Spinner mTypeSpinner;
+    @Bind(R.id.severitySpinner) Spinner mSeveritySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_report);
         ButterKnife.bind(this);
+
+        ArrayAdapter<CharSequence> collisionAdapter = ArrayAdapter.createFromResource(this, R.array.types_array, android.R.layout.simple_spinner_item);
+        collisionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTypeSpinner.setAdapter(collisionAdapter);
+
+        ArrayAdapter<CharSequence> severityAdapter = ArrayAdapter.createFromResource(this, R.array.severities_array, android.R.layout.simple_spinner_item);
+        severityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSeveritySpinner.setAdapter(severityAdapter);
+
 
         mSelectDateButton.setOnClickListener(this);
         mSelectTimeButton.setOnClickListener(this);
