@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types_array">
+        <item>With Car</item>
+        <item>With Bicycle</item>
+        <item>With Pedestrian</item>
+        <item>With Road Hazard</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="severities_array">
+        <item>0 - Near collision</item>
+        <item>1 - Minor scrape &amp; bruise</item>
+        <item>2 - Injury</item>
+        <item>3 - Hospitalization</item>
+        <item>4 - Fatal</item>
+    </string-array>
+
+</resources>

@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.LoginActivity"></activity>
+        <activity android:name=".ui.CreateReportActivity"></activity>
     </application>
 
 </manifest>

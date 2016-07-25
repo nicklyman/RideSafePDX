@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.epicodus.android_bike_accidents.ui.CreateReportActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Report"
+            android:id="@+id/createReportTextView"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/typeLayout"
+            android:layout_below="@+id/createReportTextView"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Collision Type"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:id="@+id/typeTextView" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:id="@+id/typeSpinner"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/descriptionLayout"
+            android:layout_below="@+id/typeLayout"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:id="@+id/descriptionTextView" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionEditText"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:lines="4" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/severityLayout"
+            android:layout_below="@id/descriptionLayout"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Severity"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:id="@+id/severityTextView"
+                android:linksClickable="false"
+                android:longClickable="false" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:id="@+id/severitySpinner"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateTimeLayout"
+            android:layout_below="@+id/severityLayout"
+            android:gravity="center">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Date"
+                    android:id="@+id/selectDateButton"
+                    android:layout_below="@+id/severityLayout"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/dateOutput"
+                    android:layout_below="@+id/selectDateButton"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="20dp"
+                android:layout_height="wrap_content">
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Time"
+                    android:id="@+id/selectTimeButton"
+                    android:layout_below="@+id/dateOutput"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/timeOutput"
+                    android:layout_below="@+id/selectTimeButton"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="20dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationAndCaseLayout"
+            android:layout_below="@+id/dateTimeLayout"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:id="@+id/locationTextView" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationEditText"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:lines="2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Police Case Number"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:id="@+id/caseNumberTextView" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/caseNumberEditText"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/submitButton"
+            android:layout_below="@+id/locationAndCaseLayout"
+            android:text="Submit"/>
+
+    </RelativeLayout>
+</ScrollView>
