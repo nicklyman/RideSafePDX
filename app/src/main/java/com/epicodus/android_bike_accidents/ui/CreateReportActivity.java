@@ -48,7 +48,7 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
             DatePickerDialog dialog = new DatePickerDialog(CreateReportActivity.this, new mDateSetListener(), mYear, mMonth, mDay);
             dialog.show();
         } else if (v == mSelectTimeButton) {
-            TimePickerDialog dialog = new TimePickerDialog(CreateReportActivity.this, new mTimeSetListener(), 12, 0, true);
+            TimePickerDialog dialog = new TimePickerDialog(CreateReportActivity.this, new mTimeSetListener(), 12, 0, false);
             dialog.show();
         }
     }
@@ -75,7 +75,15 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             int mHourOfDay = hourOfDay;
             int mMinute = minute;
-            mTimeOutput.setText(new StringBuilder().append(mHourOfDay).append(":").append(mMinute));
+            if(mHourOfDay > 12) {
+                mTimeOutput.setText(new StringBuilder().append(mHourOfDay - 12).append(":").append(String.format("%02d", mMinute)).append("pm"));
+            } else if (mHourOfDay == 12) {
+                mTimeOutput.setText(new StringBuilder().append(mHourOfDay).append(":").append(String.format("%02d", mMinute)).append("pm"));
+            } else if(mHourOfDay == 0)
+                mTimeOutput.setText(new StringBuilder().append(mHourOfDay + 12).append(":").append(String.format("%02d", mMinute)).append("am"));
+            else {
+                mTimeOutput.setText(new StringBuilder().append(mHourOfDay).append(":").append(String.format("%02d", mMinute)).append("am"));
+            }
             System.out.println(mTimeOutput.getText().toString());
             mTimeOutput.setVisibility(View.VISIBLE);
         }
