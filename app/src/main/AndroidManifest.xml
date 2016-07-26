@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.epicodus.android_bike_accidents">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,8 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.LoginActivity"></activity>
-        <activity android:name=".ui.CreateReportActivity"></activity>
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.CreateReportActivity" />
+        <activity android:name=".ui.AccidentListActivity" />
+        <activity android:name=".ui.AccidentDetailActivity"></activity>
     </application>
 
 </manifest>
