@@ -5,15 +5,22 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.epicodus.android_bike_accidents.Constants;
 import com.epicodus.android_bike_accidents.R;
+import com.epicodus.android_bike_accidents.models.Accident;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
@@ -27,6 +34,10 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
     @Bind(R.id.timeOutput) TextView mTimeOutput;
     @Bind(R.id.typeSpinner) Spinner mTypeSpinner;
     @Bind(R.id.severitySpinner) Spinner mSeveritySpinner;
+    @Bind(R.id.submitButton) Button mSubmitButton;
+    @Bind(R.id.descriptionEditText) EditText mDescriptionEditText;
+    @Bind(R.id.locationEditText) EditText mLocationEditText;
+    @Bind(R.id.caseNumberEditText) EditText mCaseNumberEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +53,9 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         severityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSeveritySpinner.setAdapter(severityAdapter);
 
-
         mSelectDateButton.setOnClickListener(this);
         mSelectTimeButton.setOnClickListener(this);
+        mSubmitButton.setOnClickListener(this);
         mDateOutput.setVisibility(View.INVISIBLE);
         mTimeOutput.setVisibility(View.INVISIBLE);
     }
@@ -62,6 +73,23 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         } else if (v == mSelectTimeButton) {
             TimePickerDialog dialog = new TimePickerDialog(CreateReportActivity.this, new mTimeSetListener(), 12, 0, false);
             dialog.show();
+        }
+
+        if (v == mSubmitButton) {
+            String type = mTypeSpinner.getSelectedItem().toString();
+            String description = mDescriptionEditText.getText().toString().trim();
+            String severityString = mSeveritySpinner.getSelectedItem().toString();
+            int severityInt = Integer.parseInt(severityString.substring(0,1));
+            String date = mDateOutput.getText().toString().trim();
+            String time = mTimeOutput.getText().toString().trim();
+            String location = mLocationEditText.getText().toString().trim();
+            String policeCaseNumber = mCaseNumberEditText.getText().toString().trim();
+
+            Accident userInput = new Accident(type, description, severityInt, date, time, location, policeCaseNumber);
+
+            DatabaseReference accidentRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
+            accidentRef.push().setValue(userInput);
+            Toast.makeText(CreateReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 

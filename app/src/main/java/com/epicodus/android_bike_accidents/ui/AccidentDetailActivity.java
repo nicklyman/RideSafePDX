@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 public class AccidentDetailActivity extends AppCompatActivity {
     @Bind(R.id.viewPager) ViewPager mViewPager;
-    private AccidentPagerAdapter adapterViewPager;
+//    private AccidentPagerAdapter adapterViewPager;
     ArrayList<Accident> mAccidents = new ArrayList<>();
 
     @Override
@@ -29,8 +29,8 @@ public class AccidentDetailActivity extends AppCompatActivity {
 
         int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
 
-        adapterViewPager = new AccidentPagerAdapter(getSupportFragmentManager(), mAccidents);
-        mViewPager.setAdapter(adapterViewPager);
+//        adapterViewPager = new AccidentPagerAdapter(getSupportFragmentManager(), mAccidents);
+//        mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }
 }

@@ -11,18 +11,18 @@ public class Accident {
     String collision;
     String description;
     int severity;
-    String address;
+    String location;
     String casenumber;
-    char date;
-    char time;
+    String date;
+    String time;
 
     public Accident() {}
 
-public Accident (String collision, String description, int severity, String address, String casenumber, char date, char time) {
+public Accident (String collision, String description, int severity, String date, String time, String location, String casenumber) {
     this.collision = collision;
     this.description = description;
     this.severity = severity;
-    this.address = address;
+    this.location = location;
     this.casenumber = casenumber;
     this.date = date;
     this.time = time;
@@ -37,16 +37,16 @@ public Accident (String collision, String description, int severity, String addr
     public int getSeverity() {
         return severity;
     }
-    public String getAddress() {
-        return address;
+    public String getLocation() {
+        return location;
     }
     public String getCasenumber() {
         return casenumber;
     }
-    public char getDate() {
+    public String getDate() {
         return date;
     }
-    public char getTime() {
+    public String getTime() {
         return time;
     }
 }
