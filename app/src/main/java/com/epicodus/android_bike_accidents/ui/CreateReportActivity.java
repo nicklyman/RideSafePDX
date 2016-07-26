@@ -90,6 +90,9 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
             DatabaseReference accidentRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
             accidentRef.push().setValue(userInput);
             Toast.makeText(CreateReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(CreateReportActivity.this, AccidentListActivity.class);
+            startActivity(intent);
         }
     }
 

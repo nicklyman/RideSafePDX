@@ -34,20 +34,16 @@ public class AccidentListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accident_list);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-
-        mAccidentReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
+        mAccidentReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_ACCIDENTS);
         setUpFirebaseAdapter();
     }
 
     private void setUpFirebaseAdapter() {
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Accident, FirebaseAccidentViewHolder>
-                (Accident.class, R.layout.accident_list_item, FirebaseAccidentViewHolder.class,
-                        mAccidentReference) {
+                (Accident.class, R.layout.accident_list_item, FirebaseAccidentViewHolder.class, mAccidentReference) {
 
             @Override
-            protected void populateViewHolder(FirebaseAccidentViewHolder viewHolder,
-                                              Accident model, int position) {
+            protected void populateViewHolder(FirebaseAccidentViewHolder viewHolder, Accident model, int position) {
                 viewHolder.bindAccident(model);
             }
         };
@@ -62,7 +58,7 @@ public class AccidentListActivity extends AppCompatActivity {
         mFirebaseAdapter.cleanup();
     }
 
-//
+
 //    private void getAccidents() {
 //        AccidentListActivity.this.runOnUiThread(new Runnable() {
 //            @Override

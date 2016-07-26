@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         mCreateReportButton.setOnClickListener(this);
+        mAccidentListButton.setOnClickListener(this);
         Picasso.with(this).load(R.drawable.bike).into(mBikeImageView);
     }
 
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mCreateReportButton) {
             Intent intent = new Intent(MainActivity.this, CreateReportActivity.class);
+            startActivity(intent);
+        }
+        if(v == mAccidentListButton) {
+            Intent intent = new Intent(MainActivity.this, AccidentListActivity.class);
             startActivity(intent);
         }
     }
