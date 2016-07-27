@@ -12,17 +12,21 @@ public class Accident {
     String description;
     int severity;
     String location;
+    double latitude;
+    double longitude;
     String casenumber;
     String date;
     String time;
 
     public Accident() {}
 
-public Accident (String collision, String description, int severity, String date, String time, String location, String casenumber) {
+public Accident (String collision, String description, int severity, String date, String time, String location, double latitude, double longitude, String casenumber) {
     this.collision = collision;
     this.description = description;
     this.severity = severity;
     this.location = location;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.casenumber = casenumber;
     this.date = date;
     this.time = time;
@@ -40,6 +44,8 @@ public Accident (String collision, String description, int severity, String date
     public String getLocation() {
         return location;
     }
+    public double getLatitude() { return latitude; }
+    public double getLongitude() { return longitude; }
     public String getCasenumber() {
         return casenumber;
     }
