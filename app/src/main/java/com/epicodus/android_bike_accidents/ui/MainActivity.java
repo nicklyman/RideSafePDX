@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mCreateReportButton.setOnClickListener(this);
         mAccidentListButton.setOnClickListener(this);
+        mAccidentMapButton.setOnClickListener(this);
         Picasso.with(this).load(R.drawable.bike).into(mBikeImageView);
     }
 
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v == mAccidentListButton) {
             Intent intent = new Intent(MainActivity.this, AccidentListActivity.class);
+            startActivity(intent);
+        }
+        if(v == mAccidentMapButton) {
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             startActivity(intent);
         }
     }
