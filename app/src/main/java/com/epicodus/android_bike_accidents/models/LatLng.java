@@ -1,22 +1,24 @@
 package com.epicodus.android_bike_accidents.models;
 
-public class LatLng {
-    public Double latitude;
-    public Double longitude;
+import org.parceler.Parcel;
 
-    public LatLng(Double latitude, Double longitude){
+@Parcel
+public class LatLng {
+    public double latitude;
+    public double longitude;
+
+    public LatLng(){};
+
+    public LatLng(double latitude, double longitude){
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public LatLng(){};
-
-    public Double latitude(){
+    public double latitude(){
         return this.latitude;
     }
 
-    public Double longitude(){
+    public double longitude(){
         return this.longitude;
     }
-
 }

@@ -1,5 +1,7 @@
 package com.epicodus.android_bike_accidents.models;
 
+
+import com.epicodus.android_bike_accidents.models.LatLng;
 import org.parceler.Parcel;
 
 /**
@@ -12,21 +14,19 @@ public class Accident {
     String description;
     int severity;
     String location;
-    double latitude;
-    double longitude;
+    LatLng coordinates;
     String casenumber;
     String date;
     String time;
 
     public Accident() {}
 
-public Accident (String collision, String description, int severity, String date, String time, String location, double latitude, double longitude, String casenumber) {
+public Accident (String collision, String description, int severity, String date, String time, String location, LatLng coordinates, String casenumber) {
     this.collision = collision;
     this.description = description;
     this.severity = severity;
     this.location = location;
-    this.latitude = latitude;
-    this.longitude = longitude;
+    this.coordinates = coordinates;
     this.casenumber = casenumber;
     this.date = date;
     this.time = time;
@@ -44,8 +44,7 @@ public Accident (String collision, String description, int severity, String date
     public String getLocation() {
         return location;
     }
-    public double getLatitude() { return latitude; }
-    public double getLongitude() { return longitude; }
+    public LatLng getCoordinates() {return coordinates; }
     public String getCasenumber() {
         return casenumber;
     }

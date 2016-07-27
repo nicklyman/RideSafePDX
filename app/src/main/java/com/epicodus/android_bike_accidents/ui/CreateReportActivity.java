@@ -5,7 +5,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,6 +34,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -94,39 +98,53 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         }
 
         if (v == mSubmitButton) {
+            String type = mTypeSpinner.getSelectedItem().toString();
+            String description = mDescriptionEditText.getText().toString().trim();
+            String severityString = mSeveritySpinner.getSelectedItem().toString();
+            int severityInt = Integer.parseInt(severityString.substring(0,1));
+            String date = mDateOutput.getText().toString().trim();
+            String time = mTimeOutput.getText().toString().trim();
+            String location = mLocationEditText.getText().toString().trim();
+            String policeCaseNumber = mCaseNumberEditText.getText().toString().trim();
 
-            if(mLatitudeEditText.getText().toString().length() != 0 && mLongitudeEditText.getText().toString().length() != 0) {
-                String type = mTypeSpinner.getSelectedItem().toString();
-                String description = mDescriptionEditText.getText().toString().trim();
-                String severityString = mSeveritySpinner.getSelectedItem().toString();
-                int severityInt = Integer.parseInt(severityString.substring(0,1));
-                String date = mDateOutput.getText().toString().trim();
-                String time = mTimeOutput.getText().toString().trim();
-                String location = mLocationEditText.getText().toString().trim();
-                String policeCaseNumber = mCaseNumberEditText.getText().toString().trim();
-                double latitude = Double.parseDouble(mLatitudeEditText.getText().toString());
-                double longitude = Double.parseDouble(mLongitudeEditText.getText().toString());
+            if(!mLocationEditText.getText().toString().equals("")) {
+                LatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
+                if(newCoordinates == null) {
+                    mLocationEditText.setError("Couldn't find coordinates for this address, try a different address");
+                } else {
+                    //do stuff (latitude, longitude)
+                    Log.v("Coordinates: ", newCoordinates.toString());
 
-                Accident userInput = new Accident(type, description, severityInt, date, time, location, latitude, longitude, policeCaseNumber);
 
-                DatabaseReference accidentRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
-                accidentRef.push().setValue(userInput);
-                Toast.makeText(CreateReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    Accident userInput = new Accident(type, description, severityInt, date, time, location, newCoordinates, policeCaseNumber);
 
-                Intent intent = new Intent(CreateReportActivity.this, AccidentListActivity.class);
-                startActivity(intent);
+                    DatabaseReference accidentRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
+                    accidentRef.push().setValue(userInput);
+                    Toast.makeText(CreateReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(CreateReportActivity.this, AccidentListActivity.class);
+                    startActivity(intent);
+                }
+
             } else {
-                mLongitudeEditText.setError("please enter a longitude");
-                mLatitudeEditText.setError("pleade enter a latitude");
+                mLocationEditText.setError("Please enter an address to use the button");
             }
-
         }
 
         if(v == mGetLocationButton) {
-            ///FIND USER LOCATION WITH PERMISSIONS
-            refreshLocation();
-            Log.d("latitude", String.valueOf(userLat));
-            Log.d("longitude", String.valueOf(userLong));
+
+            if(!mLocationEditText.getText().toString().equals("")) {
+                LatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
+                if(newCoordinates == null) {
+                    mLocationEditText.setError("Couldn't find coordinates for this address, try a different address");
+                } else {
+                    //do stuff (latitude, longitude)
+                    Log.v("Coordinates: ", newCoordinates.toString());
+                }
+
+            } else {
+                mLocationEditText.setError("Please enter an address to use the button");
+            }
         }
     }
 
@@ -166,50 +184,32 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void refreshLocation() {
-        ///SETS CRITERIA FOR WANTED CONNECTION
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setCostAllowed(true);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
 
-        ///SETS REFRESH ON USER LOCATION TO EVERY SECOND.
-        String provider = locationManager.getBestProvider(criteria, true);
-        if (provider != null) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.INTERNET}, 10);
-                }
-                return;
+    //geocode latitude and longitude from address
+    public LatLng getLocationFromAddress(String strAddress) {
+
+        Geocoder coder = new Geocoder(CreateReportActivity.this, Locale.getDefault());
+        List<Address> address;
+        LatLng coordinates = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 1);
+            if (address == null) {
+                return null;
             }
-            locationManager.requestLocationUpdates(provider, 1000, 0, listener);
-        } else {
-            Log.d("provider", "NO PROVIDER FOUND!");
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            coordinates = new LatLng(location.getLatitude(), location.getLongitude());
+
+            return coordinates;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return coordinates;
     }
 
-
-    ///LISTENING FOR CHANGE IN LOCATION, SETTING USER LOCATION.
-    private final LocationListener listener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            userLong = location.getLongitude();
-            userLat = location.getLatitude();
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) { }
-
-        @Override
-        public void onProviderEnabled(String s) {
-            userLocation = new LatLng(userLat, userLong);
-        }
-
-        @Override
-        public void onProviderDisabled(String s) { }
-    };
 }
 
 
