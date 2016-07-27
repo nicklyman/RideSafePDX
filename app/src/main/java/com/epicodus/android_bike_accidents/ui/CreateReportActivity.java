@@ -51,9 +51,6 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
     @Bind(R.id.descriptionEditText) EditText mDescriptionEditText;
     @Bind(R.id.locationEditText) EditText mLocationEditText;
     @Bind(R.id.caseNumberEditText) EditText mCaseNumberEditText;
-    @Bind(R.id.latitudeEditText) EditText mLatitudeEditText;
-    @Bind(R.id.longitudeEditText) EditText mLongitudeEditText;
-    @Bind(R.id.getLocationButton) Button mGetLocationButton;
 
     private LocationManager locationManager;
     public static Double userLong;
@@ -76,7 +73,6 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
 
         mSelectDateButton.setOnClickListener(this);
         mSelectTimeButton.setOnClickListener(this);
-        mGetLocationButton.setOnClickListener(this);
         mSubmitButton.setOnClickListener(this);
         mDateOutput.setVisibility(View.INVISIBLE);
         mTimeOutput.setVisibility(View.INVISIBLE);
@@ -124,22 +120,6 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
 
                     Intent intent = new Intent(CreateReportActivity.this, AccidentListActivity.class);
                     startActivity(intent);
-                }
-
-            } else {
-                mLocationEditText.setError("Please enter an address to use the button");
-            }
-        }
-
-        if(v == mGetLocationButton) {
-
-            if(!mLocationEditText.getText().toString().equals("")) {
-                LatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
-                if(newCoordinates == null) {
-                    mLocationEditText.setError("Couldn't find coordinates for this address, try a different address");
-                } else {
-                    //do stuff (latitude, longitude)
-                    Log.v("Coordinates: ", newCoordinates.toString());
                 }
 
             } else {

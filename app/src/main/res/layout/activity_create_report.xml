@@ -16,13 +16,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Report"
+            android:text="Create New Incident Report"
             android:id="@+id/createReportTextView"
             android:textSize="26sp"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/colorPrimaryText" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -39,13 +40,15 @@
                 android:text="Collision Type"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:id="@+id/typeTextView" />
+                android:id="@+id/typeTextView"
+                android:textColor="@color/colorPrimaryDark" />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:id="@+id/typeSpinner"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -64,7 +67,8 @@
                 android:text="Description"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:id="@+id/descriptionTextView" />
+                android:id="@+id/descriptionTextView"
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -74,8 +78,9 @@
                 android:singleLine="false"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:lines="4"
-                android:hint="Enter description of incident" />
+                android:maxLines="4"
+                android:hint="Enter description of incident"
+                android:gravity="bottom|center" />
 
         </LinearLayout>
 
@@ -96,13 +101,15 @@
                 android:textStyle="bold"
                 android:id="@+id/severityTextView"
                 android:linksClickable="false"
-                android:longClickable="false" />
+                android:longClickable="false"
+                android:textColor="@color/colorPrimaryDark" />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:id="@+id/severitySpinner"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -193,7 +200,8 @@
                 android:text="Location"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:id="@+id/locationTextView" />
+                android:id="@+id/locationTextView"
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -203,65 +211,9 @@
                 android:singleLine="false"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:lines="2"
-                android:hint="Enter street address" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Latitude"
-                        android:id="@+id/latitudeTextView"
-                        android:layout_alignParentStart="false"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true" />
-
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/latitudeEditText"
-                        android:layout_toEndOf="@+id/latitudeTextView" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Longitude"
-                        android:id="@+id/longitudeTextView"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/latitudeEditText"
-                        android:layout_marginLeft="26dp" />
-
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/longitudeEditText"
-                        android:layout_toRightOf="@+id/longitudeTextView"
-                        android:layout_toEndOf="@+id/longitudeTextView" />
-
-                </RelativeLayout>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/getLocationButton"
-                    android:text="User Current Location for lat. long."
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"/>
-
-            </LinearLayout>
+                android:maxLines="2"
+                android:hint="Enter street address"
+                android:gravity="bottom|center" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -270,20 +222,25 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:id="@+id/caseNumberTextView" />
+                android:id="@+id/caseNumberTextView"
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/caseNumberEditText"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp" />
+                android:layout_marginRight="50dp"
+                android:gravity="center"
+                android:hint="(optional)" />
 
         </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:id="@+id/submitButton"
             android:layout_below="@+id/locationAndCaseLayout"
             android:text="Submit"/>
