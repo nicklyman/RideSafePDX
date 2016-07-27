@@ -1,12 +1,16 @@
 package com.epicodus.android_bike_accidents.ui;
 
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.epicodus.android_bike_accidents.R;
 import com.epicodus.android_bike_accidents.models.Accident;
+import com.epicodus.android_bike_accidents.models.CustomLatLng;
 
 import org.parceler.Parcels;
 
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class AccidentDetailActivity extends AppCompatActivity {
+public class AccidentDetailActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.accidentReportTextView) TextView mAccidentReportTextView;
     @Bind(R.id.typeTextView) TextView mCollisionTypeTextView;
     @Bind(R.id.descriptionTextView) TextView mDescriptionTextView;
@@ -24,6 +28,7 @@ public class AccidentDetailActivity extends AppCompatActivity {
     @Bind(R.id.timeOutput) TextView mTimeOutput;
     @Bind(R.id.locationTextView) TextView mLocationTextView;
     @Bind(R.id.caseNumberTextView) TextView mCaseNumberTextView;
+    @Bind(R.id.mapButton) Button mMapButton;
 
     ArrayList<Accident> mAccidents = new ArrayList<>();
     private Accident accident;
@@ -45,5 +50,17 @@ public class AccidentDetailActivity extends AppCompatActivity {
         mTimeOutput.setText("Time: " + accident.getTime());
         mLocationTextView.setText("Location: " + accident.getLocation());
         mCaseNumberTextView.setText("Case#: " + accident.getCasenumber());
+
+        mMapButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mMapButton) {
+            CustomLatLng newCoordinates = accident.getCoordinates();
+            Intent intent = new Intent(AccidentDetailActivity.this, MapsActivity.class);
+            intent.putExtra("coordinates", Parcels.wrap(newCoordinates));
+            startActivity(intent);
+        }
     }
 }
