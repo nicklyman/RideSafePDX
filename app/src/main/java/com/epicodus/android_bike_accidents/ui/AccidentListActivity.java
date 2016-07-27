@@ -1,5 +1,6 @@
 package com.epicodus.android_bike_accidents.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class AccidentListActivity extends AppCompatActivity {
+    private ProgressDialog mAuthProgressDialog;
+
     private DatabaseReference mAccidentReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
 
@@ -34,6 +37,9 @@ public class AccidentListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accident_list);
         ButterKnife.bind(this);
 
+        createAuthProgressDialog();
+        mAuthProgressDialog.show();
+
         mAccidentReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_ACCIDENTS);
         setUpFirebaseAdapter();
     }
@@ -45,6 +51,7 @@ public class AccidentListActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(FirebaseAccidentViewHolder viewHolder, Accident model, int position) {
                 viewHolder.bindAccident(model);
+                mAuthProgressDialog.hide();
             }
         };
         mRecyclerView.setHasFixedSize(true);
@@ -71,4 +78,13 @@ public class AccidentListActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Loading Reports from Database...");
+        mAuthProgressDialog.setCancelable(false);
+    }
+
+
 }
