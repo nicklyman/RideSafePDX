@@ -2,17 +2,9 @@ package com.epicodus.android_bike_accidents.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +21,7 @@ import android.widget.Toast;
 import com.epicodus.android_bike_accidents.Constants;
 import com.epicodus.android_bike_accidents.R;
 import com.epicodus.android_bike_accidents.models.Accident;
-import com.epicodus.android_bike_accidents.models.LatLng;
+import com.epicodus.android_bike_accidents.models.CustomLatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -58,7 +50,7 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
     private LocationManager locationManager;
     public static Double userLong;
     public static Double userLat;
-    public static LatLng userLocation;
+    public static CustomLatLng userLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,22 +100,18 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
             String policeCaseNumber = mCaseNumberEditText.getText().toString().trim();
 
             if(!mLocationEditText.getText().toString().equals("")) {
-                LatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
+                CustomLatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
                 if(newCoordinates == null) {
                     mLocationEditText.setError("Couldn't find coordinates for this address, try a different address");
                 } else {
                     //do stuff (latitude, longitude)
                     Log.v("Coordinates: ", newCoordinates.toString());
 
-
                     Accident userInput = new Accident(type, description, severityInt, date, time, location, newCoordinates, policeCaseNumber);
 
                     DatabaseReference accidentRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
                     accidentRef.push().setValue(userInput);
                     Toast.makeText(CreateReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(CreateReportActivity.this, AccidentListActivity.class);
-                    startActivity(intent);
                 }
 
             } else {
@@ -134,7 +122,7 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         if(v == mGetLocationButton) {
 
             if(!mLocationEditText.getText().toString().equals("")) {
-                LatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
+                CustomLatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
                 if(newCoordinates == null) {
                     mLocationEditText.setError("Couldn't find coordinates for this address, try a different address");
                 } else {
@@ -186,11 +174,11 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
 
 
     //geocode latitude and longitude from address
-    public LatLng getLocationFromAddress(String strAddress) {
+    public CustomLatLng getLocationFromAddress(String strAddress) {
 
         Geocoder coder = new Geocoder(CreateReportActivity.this, Locale.getDefault());
         List<Address> address;
-        LatLng coordinates = null;
+        CustomLatLng coordinates = null;
 
         try {
             address = coder.getFromLocationName(strAddress, 1);
@@ -201,7 +189,7 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
             location.getLatitude();
             location.getLongitude();
 
-            coordinates = new LatLng(location.getLatitude(), location.getLongitude());
+            coordinates = new CustomLatLng(location.getLatitude(), location.getLongitude());
 
             return coordinates;
         } catch (Exception e) {
