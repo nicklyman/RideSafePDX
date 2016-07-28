@@ -12,17 +12,27 @@
         android:src="@drawable/bike"
         android:scaleType="centerCrop" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This application displays bicycle..."
-        android:id="@+id/summaryTextView"
-        android:textSize="24sp"
-        android:shadowColor="#000000"
-        android:shadowRadius="9.2"
-        android:textColor="#ffffff"
+        android:padding="20dp"
+        android:id="@+id/summaryLayout"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="If you are the one riding the bike, it's important to keep your wits while riding. This app is designed for warning bicycle riders where incident happen. Also, riders can report incident to alert other riders."
+            android:id="@+id/summaryTextView"
+            android:textSize="24sp"
+            android:shadowColor="#000000"
+            android:shadowRadius="9.2"
+            android:textColor="@android:color/white"
+            android:textStyle="italic" />
+
+    </LinearLayout>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,8 +42,8 @@
         android:id="@+id/accidentListButton"
         android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/summaryTextView"
-        android:layout_alignStart="@+id/summaryTextView" />
+        android:layout_alignLeft="@+id/summaryLayout"
+        android:layout_alignStart="@+id/summaryLayout" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -42,7 +52,7 @@
         android:text="Map View"
         android:id="@+id/accidentMapButton"
         android:layout_alignBottom="@+id/accidentListButton"
-        android:layout_alignRight="@+id/summaryTextView" />
+        android:layout_alignRight="@+id/summaryLayout" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
