@@ -47,7 +47,22 @@ public class FirebaseAccidentViewHolder extends RecyclerView.ViewHolder implemen
         TextView dateTextView = (TextView) mView.findViewById(R.id.dateTextView);
 
         collisionTypeTextView.setText("Collision with: " + accident.getCollision());
-        severityTextView.setText("Severity rating: " + String.valueOf(accident.getSeverity()) + "/4");
+        if(accident.getSeverity() == 0) {
+            severityTextView.setText("Severity: Near collision");
+        }
+        if(accident.getSeverity() == 1) {
+            severityTextView.setText("Severity: Minor scrapes & bruises");
+        }
+        if(accident.getSeverity() == 2) {
+            severityTextView.setText("Severity: Injury");
+        }
+        if(accident.getSeverity() == 3) {
+            severityTextView.setText("Severity: Hospitalization");
+        }
+        if(accident.getSeverity() == 4) {
+            severityTextView.setText("Severity: Fatal");
+        }
+
         accidentLocationTextView.setText("Address: " + accident.getLocation());
         dateTextView.setText("Date: " + accident.getDate());
     }

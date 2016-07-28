@@ -45,11 +45,29 @@ public class AccidentDetailActivity extends AppCompatActivity implements View.On
 
         mCollisionTypeTextView.setText("Collision Type: " + accident.getCollision());
         mDescriptionTextView.setText("Description: " + accident.getDescription());
-        mSeverityTextView.setText("Severity: " + accident.getSeverity());
+        if(accident.getSeverity() == 0) {
+            mSeverityTextView.setText("Severity: Near collision");
+        }
+        if(accident.getSeverity() == 1) {
+            mSeverityTextView.setText("Severity: Minor scrapes & bruises");
+        }
+        if(accident.getSeverity() == 2) {
+            mSeverityTextView.setText("Severity: Injury");
+        }
+        if(accident.getSeverity() == 3) {
+            mSeverityTextView.setText("Severity: Hospitalization");
+        }
+        if(accident.getSeverity() == 4) {
+            mSeverityTextView.setText("Severity: Fatal");
+        }
         mDateOutput.setText("Date: " + accident.getDate());
         mTimeOutput.setText("Time: " + accident.getTime());
         mLocationTextView.setText("Location: " + accident.getLocation());
-        mCaseNumberTextView.setText("Case#: " + accident.getCasenumber());
+        if (accident.getCasenumber().equals("")) {
+            mCaseNumberTextView.setText("Case#: N/A");
+        } else {
+            mCaseNumberTextView.setText("Case#: " + accident.getCasenumber());
+        }
 
         mMapButton.setOnClickListener(this);
     }

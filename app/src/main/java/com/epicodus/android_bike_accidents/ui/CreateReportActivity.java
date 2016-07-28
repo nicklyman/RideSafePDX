@@ -2,6 +2,7 @@ package com.epicodus.android_bike_accidents.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -24,6 +25,8 @@ import com.epicodus.android_bike_accidents.models.Accident;
 import com.epicodus.android_bike_accidents.models.CustomLatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.parceler.Parcels;
 
 import java.util.Calendar;
 import java.util.List;
@@ -108,11 +111,14 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
                     DatabaseReference accidentRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
                     accidentRef.push().setValue(userInput);
                     Toast.makeText(CreateReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+
                 }
 
             } else {
                 mLocationEditText.setError("Please enter an address to use the button");
             }
+            Intent intent = new Intent(CreateReportActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 

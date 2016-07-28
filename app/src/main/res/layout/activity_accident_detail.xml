@@ -8,18 +8,20 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:id="@+id/linear_layout"
         tools:context="com.epicodus.android_bike_accidents.ui.CreateReportActivity"
-        android:gravity="center_horizontal">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_centerVertical="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bicycle Accident Report"
+            android:text="Bicycle Accident Details"
             android:id="@+id/accidentReportTextView"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginBottom="40dp"/>
@@ -91,21 +93,13 @@
             android:layout_marginBottom="20dp"
             android:id="@+id/caseNumberTextView" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@drawable/map_placeholder"
-            android:layout_below="@+id/linear_layout"
+            android:id="@+id/mapButton"
+            android:text="View on Map"
             android:layout_alignParentBottom="true" />
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mapButton"
-        android:text="Map"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
