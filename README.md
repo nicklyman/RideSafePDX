@@ -13,7 +13,14 @@ Ride Safe PDX is an Android application that stores and displays bicycle acciden
 * In a terminal navigate to a directory you'd like to place the project folder and type $ git clone https://github.com/nicklyman/RideSafePDX
 * Start Android Studio
 * Select 'Open an existing Android Studio project'
-* Browse to the directory you cloned the project from
+* Browse to the directory containing the cloned the project 
+* For viewing maps, you will need a Google Maps API key - https://developers.google.com/maps/documentation/android-api/start
+    * Start at step 4 in link above
+        * Select "Project" in dropdown menu
+            * Navigate to /app/src/debug/res/values/google_maps_api.xml file
+                * Your API key will replace "Your API Key Here" 
+    * It might also be necessary to add your SHA-1 certificate fingerprint in the Google Developer Console 
+        * Select "Credentials", then select "Add package name and fingerprint"
 * To run the app select the menu Run > Run 'app'
 
 ## Known Bugs
