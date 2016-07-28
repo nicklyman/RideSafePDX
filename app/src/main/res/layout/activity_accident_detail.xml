@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.epicodus.android_bike_accidents.ui.AccidentDetailActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bike_lane"
+        android:scaleType="centerCrop"
+        android:alpha="0.3" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -98,7 +105,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/mapButton"
             android:text="View on Map"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/colorPrimaryLight" />
 
     </LinearLayout>
 
