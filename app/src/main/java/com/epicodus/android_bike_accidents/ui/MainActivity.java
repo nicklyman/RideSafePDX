@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.createReportButton) Button mCreateReportButton;
     @Bind(R.id.accidentMapButton) Button mAccidentMapButton;
     @Bind(R.id.bikeImageView) ImageView mBikeImageView;
+    @Bind(R.id.accidentText) TextView mAccidentText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Typeface CaviarDreams = Typeface.createFromAsset(getAssets(), "fonts/Caviar_Dreams_Bold.ttf");
         mSummaryTextView.setTypeface(CaviarDreams);
+        mAccidentText.setTypeface(CaviarDreams);
 
         mCreateReportButton.setOnClickListener(this);
         mAccidentListButton.setOnClickListener(this);
