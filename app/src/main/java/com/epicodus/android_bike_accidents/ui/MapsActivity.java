@@ -1,10 +1,14 @@
 package com.epicodus.android_bike_accidents.ui;
 
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.epicodus.android_bike_accidents.Constants;
 import com.epicodus.android_bike_accidents.R;
+import com.epicodus.android_bike_accidents.models.Accident;
 import com.epicodus.android_bike_accidents.models.CustomLatLng;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,24 +16,31 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     CustomLatLng mCoordinates;
 
     private GoogleMap mMap;
 
+    private ValueEventListener mCoordinatesReferenceListener;
+    public ArrayList<LatLng> listLatLng = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        mCoordinates = Parcels.unwrap(getIntent().getParcelableExtra("coordinates"));
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -44,14 +55,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng mapCoordinates = new LatLng(mCoordinates.latitude(), mCoordinates.longitude());
+
+        final LatLng center = new LatLng(45.520886, -122.677395);
 
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-//        CustomLatLng reportCoordinates = new CustomLatLng(mCoordinates);
-        mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Incident Severity: "));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCoordinates, 16));
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+        if (Parcels.unwrap(getIntent().getParcelableExtra("coordinates")) == null) {
+            //get all coordinates from firebase
+            DatabaseReference coordinateList = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
+            Log.d("coordinates: ", coordinateList.toString());
+            mCoordinates = new CustomLatLng(45.467894, -122.658661);
+
+            mCoordinatesReferenceListener = coordinateList.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot coordinatesSnapshot : dataSnapshot.getChildren()) {
+                        Accident accident = coordinatesSnapshot.getValue(Accident.class);
+                        String coordinates = String.valueOf(accident.getCoordinates().latitude()) +"," + String.valueOf(accident.getCoordinates().longitude()) ;
+                        Log.d("Coordinates: ", coordinates);
+                        LatLng mapCoordinates = new LatLng(accident.getCoordinates().latitude(), accident.getCoordinates().longitude());
+                        mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Incident Severity: "));
+                    }
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        } else {
+            mCoordinates = Parcels.unwrap(getIntent().getParcelableExtra("coordinates"));
+            LatLng mapCoordinate = new LatLng(mCoordinates.latitude(), mCoordinates.longitude());
+            Log.d("individual latlng", mapCoordinate.toString());
+            mMap.addMarker(new MarkerOptions().position(mapCoordinate).title("Incident Severity: "));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCoordinate, 16));
+        }
     }
 }

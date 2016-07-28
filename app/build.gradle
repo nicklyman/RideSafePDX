@@ -31,7 +31,6 @@ android {
         exclude 'META-INF/notice.txt'
     }
 
-
     buildTypes {
         release {
             minifyEnabled false

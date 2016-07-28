@@ -11,7 +11,11 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.epicodus.android_bike_accidents.R;
+import com.epicodus.android_bike_accidents.models.CustomLatLng;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
+
 import java.util.Calendar;
 
 import butterknife.Bind;
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v == mAccidentMapButton) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+//            CustomLatLng latLng = new CustomLatLng(45.467894, -122.658661);
+//            intent.putExtra("coordinates", Parcels.wrap(latLng));
             startActivity(intent);
         }
     }
