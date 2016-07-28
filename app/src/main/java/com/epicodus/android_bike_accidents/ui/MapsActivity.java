@@ -31,8 +31,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
-    private ValueEventListener mCoordinatesReferenceListener;
-    public ArrayList<LatLng> listLatLng = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +60,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (Parcels.unwrap(getIntent().getParcelableExtra("coordinates")) == null) {
             //get all coordinates from firebase
-            DatabaseReference coordinateList = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS);
-            Log.d("coordinates: ", coordinateList.toString());
             mCoordinates = new CustomLatLng(45.467894, -122.658661);
 
-            mCoordinatesReferenceListener = coordinateList.addValueEventListener(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_ACCIDENTS).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot coordinatesSnapshot : dataSnapshot.getChildren()) {
