@@ -70,7 +70,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         String coordinates = String.valueOf(accident.getCoordinates().latitude()) +"," + String.valueOf(accident.getCoordinates().longitude()) ;
                         Log.d("Coordinates: ", coordinates);
                         LatLng mapCoordinates = new LatLng(accident.getCoordinates().latitude(), accident.getCoordinates().longitude());
-                        mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Incident Severity: "));
+                        if(accident.getSeverity() == 0) {
+                            mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Near Collision: " + accident.getCollision()).snippet("Severity: 0 - Near collision"));
+                        } else if (accident.getSeverity() == 1) {
+                            mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Collision: " + accident.getCollision()).snippet("Severity: 1 - Minor scrape & bruise"));
+                        } else if (accident.getSeverity() == 2) {
+                            mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Collision: " + accident.getCollision()).snippet("Severity: 2 - Injury"));
+                        } else if (accident.getSeverity() == 3) {
+                            mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Collision: " + accident.getCollision()).snippet("Severity: 3 - Hospitalization"));
+                        } else if (accident.getSeverity() == 4) {
+                            mMap.addMarker(new MarkerOptions().position(mapCoordinates).title("Collision: " + accident.getCollision()).snippet("Severity: 4 - Fatal"));
+                        }
                     }
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
                 }
@@ -86,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCoordinates = Parcels.unwrap(getIntent().getParcelableExtra("coordinates"));
             LatLng mapCoordinate = new LatLng(mCoordinates.latitude(), mCoordinates.longitude());
             Log.d("individual latlng", mapCoordinate.toString());
-            mMap.addMarker(new MarkerOptions().position(mapCoordinate).title("Incident Severity: "));
+            mMap.addMarker(new MarkerOptions().position(mapCoordinate).title("Accident"));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCoordinate, 16));
         }
     }
