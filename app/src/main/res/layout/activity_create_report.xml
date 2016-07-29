@@ -141,7 +141,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
                     android:id="@+id/dateOutput"
                     android:layout_below="@+id/selectDateButton"
                     android:layout_centerHorizontal="true"
@@ -175,7 +174,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
                     android:id="@+id/timeOutput"
                     android:layout_below="@+id/selectTimeButton"
                     android:layout_centerHorizontal="true"
@@ -212,7 +210,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:maxLines="2"
-                android:hint="Enter street address"
+                android:hint="Enter address or intersection"
                 android:gravity="bottom|center" />
 
             <TextView

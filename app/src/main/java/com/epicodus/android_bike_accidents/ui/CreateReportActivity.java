@@ -1,11 +1,17 @@
 package com.epicodus.android_bike_accidents.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +57,9 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
     @Bind(R.id.locationEditText) EditText mLocationEditText;
     @Bind(R.id.caseNumberEditText) EditText mCaseNumberEditText;
 
+    public AlertDialog mErrorDialog;
+    AlertDialog.Builder alertDialogBuilder;
+
     private LocationManager locationManager;
     public static Double userLong;
     public static Double userLat;
@@ -75,6 +84,8 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         mSubmitButton.setOnClickListener(this);
         mDateOutput.setVisibility(View.INVISIBLE);
         mTimeOutput.setVisibility(View.INVISIBLE);
+
+        createErrorDialog();
     }
 
     @Override
@@ -94,11 +105,31 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
 
         if (v == mSubmitButton) {
             String type = mTypeSpinner.getSelectedItem().toString();
+            TextView errorText = (TextView)mTypeSpinner.getSelectedView();
+            if (type.equals("")) {
+                errorText.setText("Select incident type");
+                errorText.setTextColor(Color.RED);
+                return;
+            }
             String description = mDescriptionEditText.getText().toString().trim();
             String severityString = mSeveritySpinner.getSelectedItem().toString();
+            TextView severityErrorText = (TextView)mSeveritySpinner.getSelectedView();
+            if (severityString.equals("")) {
+                severityErrorText.setText("Select incident severity");
+                severityErrorText.setTextColor(Color.RED);
+                return;
+            }
             int severityInt = Integer.parseInt(severityString.substring(0,1));
             String date = mDateOutput.getText().toString().trim();
+            if (date.equals("")) {
+                mErrorDialog = alertDialogBuilder.show();
+                return;
+            }
             String time = mTimeOutput.getText().toString().trim();
+            if (time.equals("")) {
+                mErrorDialog = alertDialogBuilder.show();
+                return;
+            }
             String location = mLocationEditText.getText().toString().trim();
             String policeCaseNumber = mCaseNumberEditText.getText().toString().trim();
 
@@ -106,6 +137,7 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
                 CustomLatLng newCoordinates = getLocationFromAddress(mLocationEditText.getText().toString().trim());
                 if(newCoordinates == null) {
                     mLocationEditText.setError("Couldn't find coordinates for this address, try a different address");
+                    return;
                 } else {
                     //do stuff (latitude, longitude)
                     Log.v("Coordinates: ", newCoordinates.toString());
@@ -120,6 +152,7 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
 
             } else {
                 mLocationEditText.setError("Please enter an address to use the button");
+                return;
             }
             Intent intent = new Intent(CreateReportActivity.this, MainActivity.class);
             startActivity(intent);
@@ -215,6 +248,23 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
         finish();
     }
 
+    private void createErrorDialog() {
+        alertDialogBuilder = new AlertDialog.Builder(this)
+            .setTitle("Date & Time Required")
+            .setMessage("Please choose a date and time before submitting")
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+
+
+//        mErrorDialog = new AlertDialog(this);
+//        mErrorDialog.setTitle("Loading...");
+//        mErrorDialog.set
+//        mErrorDialog.setCancelable(true);
+    }
 }
 
 

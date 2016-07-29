@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="types_array">
+        <item></item>
         <item>With Car</item>
         <item>With Bicycle</item>
         <item>With Pedestrian</item>
@@ -9,6 +10,7 @@
     </string-array>
 
     <string-array name="severities_array">
+        <item></item>
         <item>0 - Near collision</item>
         <item>1 - Minor scrape &amp; bruise</item>
         <item>2 - Injury</item>
