@@ -98,6 +98,13 @@ public class CreateReportActivity extends AppCompatActivity implements View.OnCl
             String severityString = mSeveritySpinner.getSelectedItem().toString();
             int severityInt = Integer.parseInt(severityString.substring(0,1));
             String date = mDateOutput.getText().toString().trim();
+            if (date.equals("Medium Text")) {
+                mDateOutput.requestFocus();
+                mDateOutput.setError("hello");
+                mDateOutput.setVisibility(View.VISIBLE);
+                return;
+            }
+
             String time = mTimeOutput.getText().toString().trim();
             String location = mLocationEditText.getText().toString().trim();
             String policeCaseNumber = mCaseNumberEditText.getText().toString().trim();

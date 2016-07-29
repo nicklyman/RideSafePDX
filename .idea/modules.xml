@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/0725_Android_bike-accidents.iml" filepath="$PROJECT_DIR$/0725_Android_bike-accidents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RideSafePDX.iml" filepath="$PROJECT_DIR$/RideSafePDX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
