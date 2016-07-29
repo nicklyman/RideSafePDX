@@ -210,7 +210,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:maxLines="2"
-                android:hint="Enter address or intersection"
+                android:hint="Enter street address"
                 android:gravity="bottom|center" />
 
             <TextView
