@@ -10,7 +10,7 @@ Ride Safe PDX is an Android application that stores and displays bicycle acciden
 
 ## Setup/Installation Requirements
 
-* In a terminal navigate to a directory you'd like to place the project folder and type $ git clone https://github.com/nicklyman/RideSafePDX
+* In a terminal navigate to a directory you'd like to place the project folder, then copy and paste the following command into the terminal $ *git clone https://github.com/nicklyman/RideSafePDX*
 * Start Android Studio
 * Select 'Open an existing Android Studio project'
 * Browse to the directory containing the cloned the project 
@@ -21,7 +21,7 @@ Ride Safe PDX is an Android application that stores and displays bicycle acciden
                 * Your API key will replace "Your API Key Here" 
     * It is also necessary to add your SHA-1 certificate fingerprint in the Google Developer Console 
         * Select "Credentials", then select "Add package name and fingerprint"
-        * Copy and paste into terminal: keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+        * Copy and paste into terminal: *keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android*
         * Add package name from the AndroidManifest.xml file
         * Add SHA-1 fingerprint certificate from terminal response and click "Save"
 * To run the app select the menu Run > Run 'app'
